@@ -1,3 +1,4 @@
+//==== Constructors ====
 function Library(name, creator) {
   this.name = name;
   this.creator = creator;
@@ -16,6 +17,7 @@ function Track(title, rating, duration) {
   this.duration = duration;
 }
 
+//==== Prototype methods ====
 //Library
 Library.prototype.addTrack = function (track) {
   this.tracks.push(track);
@@ -31,12 +33,21 @@ Playlist.prototype.addTrackToPlaylist = function (track) {
 };
 
 Playlist.prototype.overallRating = function () {
-  console.log(this.tracks.length);
-}
-// Playlist.prototype.overallDuration
+  return ((this.tracks.reduce((acc, track) => { return acc + track.rating; }, 0)) / this.tracks.length);
+};
 
-const myLibrary = new Library("Sweet toonz", "Dood");
 
-myLibrary.addPlaylist(new Playlist("woo"));
+Playlist.prototype.overallDuration = function () {
+  return (this.tracks.reduce((acc, track) => { return acc + track.duration; }, 0));
+};
 
-console.log(myLibrary);
+//Run functions
+
+const myLibrary = new Library("CWK's Library", "CWK");
+const epic = new Playlist("Sofa king epic playlist");
+const SpaceJam = new Track("Space Jam Theme", 5, 360);
+
+myLibrary.addPlaylist();
+epic.addTrackToPlaylist(SpaceJam);
+console.log(epic.overallRating());
+console.log(epic.overallDuration());
